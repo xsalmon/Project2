@@ -1,0 +1,21 @@
+<project name="Project1">
+
+
+
+  <target name="compile"depends ="clean">
+
+    <javac srcdir="." destdir="." includeantruntime="false" /> 
+  </target>
+
+
+  <target name = "run" depends = "compile">
+   <java dir= "${test}" fork = "yes" classname = "WebServer"/>
+  </target>
+
+
+  <target name="clean">
+    <delete> <fileset dir= "."> <include name = "*.class" /> </fileset> </delete>
+  </target>
+
+
+</project>
