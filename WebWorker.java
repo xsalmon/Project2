@@ -88,6 +88,10 @@ public void run()
       }// end switch
       if(WasAbleToRead==true)
     	  writeContent(os,Path,ContentType[1]);
+      if(Path.contains("favicon")) {
+	      // The html tag to give the favicon
+	      os.write("<link rel=\"icon\" type=\"image/png\" href=\"./test/favicon.png\" >".getBytes());
+      }//end if
       os.flush();
       socket.close();
    }//end try 
@@ -215,19 +219,14 @@ private void writeHTTPHeader(OutputStream os, String contentType, boolean FileEx
 private void writeContent(OutputStream os, String file,String ContentType) throws IOException
 {
    os.write("<html><head></head><body>\n".getBytes());
-   if(file.contains("favicon")) {
-	   // The html tag to give the favicon
-	   os.write("<link rel=\"icon\" type=\"image/png\" href=\"./test/favicon.png\" >".getBytes());
-   }//end if
-   else {
-       //this will read the .txt or .html file and look for the <cs371server>, <cs371date>, and img tag
-	   //and do the appropriate switches to get the correct info on the screen
-	   if(ContentType.equals("html")||ContentType.equals("txt")) {
-		   String line;
-			try {
-				BufferedReader F = new BufferedReader(new FileReader(file));
-				try {
-					while((line = F.readLine()) != null) {
+   //this will read the .txt or .html file and look for the <cs371server>, <cs371date>, and img tag
+	//and do the appropriate switches to get the correct info on the screen
+	if(ContentType.equals("html")||ContentType.equals("txt")) {
+		String line;
+      try {
+      BufferedReader F = new BufferedReader(new FileReader(file));
+      try {
+			while((line = F.readLine()) != null) {
 						if(line.contains("cs371date"))
 							os.write(" <script language=\"javascript\">\nvar today = new Date();\ndocument.write(today);\n</script>".getBytes());
 						if(line.contains("cs371server"))
@@ -284,7 +283,7 @@ private void writeContent(OutputStream os, String file,String ContentType) throw
 			       System.out.println("Unable to open file ");
 		      }//end catch
 	   }//end else
-   }//end else
+
    os.write("</body></html>\n".getBytes());
 }//end writeContent
 
