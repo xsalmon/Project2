@@ -1,15 +1,14 @@
 <project name="Project1">
 
-
+<property name = "test" location="test"/>
 
   <target name="compile"depends ="clean">
-
     <javac srcdir="." destdir="." includeantruntime="false" /> 
   </target>
 
 
   <target name = "run" depends = "compile">
-   <java dir= "${test}" fork = "yes" classname = "WebServer"/>
+   <java dir= "." fork = "yes" classname = "WebServer"/>
   </target>
 
 

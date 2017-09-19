@@ -227,7 +227,7 @@ private void writeContent(OutputStream os, String file,String ContentType) throw
 			try {
 				BufferedReader F = new BufferedReader(new FileReader(file));
 				try {
-					if((line = F.readLine()) != null) {
+					while((line = F.readLine()) != null) {
 						if(line.contains("cs371date"))
 							os.write(" <script language=\"javascript\">\nvar today = new Date();\ndocument.write(today);\n</script>".getBytes());
 						if(line.contains("cs371server"))
